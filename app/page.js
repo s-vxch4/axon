@@ -25,7 +25,7 @@ export default function Home() {
           AI agent that detects API breaking changes and opens fix PRs automatically
         </p>
         <a
-          href="https://github.com/apps/axon-s-vxch4/installations/new"
+          href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=http://localhost:3000/api/auth/callback`}
           className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-zinc-200"
         >
           <svg

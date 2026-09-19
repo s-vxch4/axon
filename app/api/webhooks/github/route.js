@@ -1,5 +1,7 @@
-import { db } from '../../../../lib/db.js';
+import db from '../../../../lib/db.js';
 import { checkSpecForChanges } from '../../../../lib/monitor.js';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(request) {
   const event = request.headers.get('x-github-event');
@@ -12,12 +14,8 @@ export async function POST(request) {
         'SELECT * FROM api_specs WHERE api_name = $1',
         [repoName]
       );
-      if (specs && specs.length > 0) {
-        for (const spec of specs) {
-          checkSpecForChanges(spec).catch((err) =>
-            console.error('[webhook] checkSpecForChanges error:', err.message)
-          );
-        }
+      if (specs.rows && specs.rows.length > 0) {
+        await checkSpecForChanges(specs.rows[0]);
       }
     }
   }

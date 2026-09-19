@@ -53,7 +53,7 @@ const tables = [
 
 async function run() {
   for (const tableSql of tables) {
-    await sql(tableSql);
+    await sql.query(tableSql);
     const match = tableSql.match(/CREATE TABLE IF NOT EXISTS (\w+)/);
     const name = match ? match[1] : 'unknown';
     console.log(`[migrate] created table: ${name}`);
